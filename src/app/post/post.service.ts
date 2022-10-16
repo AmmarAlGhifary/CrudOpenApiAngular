@@ -10,7 +10,7 @@ import { Post } from './post';
   providedIn: 'root',
 })
 export class PostService {
-  private apiUrl = 'https://jsonplaceholder.typicode.com';
+  private apiURL = 'https://jsonplaceholder.typicode.com';
 
   //  Ini Header Options
   httpOptions = {
@@ -24,31 +24,30 @@ export class PostService {
 
   getAll(): Observable<any> {
     return this.httpClient
-      .get(this.apiUrl + '/posts/')
+      .get(this.apiURL + '/posts/')
 
       .pipe(catchError(this.errorHandler));
   }
 
   // Create Method
   create(post: Post): Observable<any> {
-    return this.httpClient.post(
-      this.apiUrl + 'posts/',
-      JSON.stringify(post),
-      this.httpOptions
-    );
+    return this.httpClient
+      .post(this.apiURL + '/posts/', JSON.stringify(post), this.httpOptions)
+
+      .pipe(catchError(this.errorHandler));
   }
 
   // Find Method
   find(id: number): Observable<any> {
     return this.httpClient
-      .get(this.apiUrl + '/post/' + id)
+      .get(this.apiURL + '/posts/' + id)
       .pipe(catchError(this.errorHandler));
   }
 
- 
+  // Update
   update(id: number, post: Post): Observable<any> {
     return this.httpClient
-      .put(this.apiUrl + '/posts/' + id, JSON.stringify(post), this.httpOptions)
+      .put(this.apiURL + '/posts/' + id, JSON.stringify(post), this.httpOptions)
 
       .pipe(catchError(this.errorHandler));
   }
@@ -56,19 +55,19 @@ export class PostService {
   // Delete Method
   delete(id: number) {
     return this.httpClient
-      .delete(this.apiUrl + '/posts/' + id, this.httpOptions)
+      .delete(this.apiURL + '/posts/' + id, this.httpOptions)
 
       .pipe(catchError(this.errorHandler));
   }
 
   // Error Handler Method
-  errorHandler(error:any) {
+  errorHandler(error: any) {
     let errorMessage = '';
-    if(error.error instanceof ErrorEvent) {
+    if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(errorMessage);
- }
+  }
 }

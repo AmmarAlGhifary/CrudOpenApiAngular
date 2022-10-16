@@ -15,20 +15,20 @@ export class EditComponent implements OnInit {
   form!: FormGroup;
 
   constructor(
-    public PostService: PostService,
+    public postService: PostService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['postId'];
-    this.PostService.find(this.id).subscribe((data: Post) => {
+    this.postService.find(this.id).subscribe((data: Post) => {
       this.post = data;
     });
 
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
-      body: new FormControl('', [Validators.required]),
+      body: new FormControl('', Validators.required),
     });
   }
 
@@ -38,7 +38,7 @@ export class EditComponent implements OnInit {
 
   submit() {
     console.log(this.form.value);
-    this.PostService.update(this.id, this.form.value).subscribe((res: any) => {
+    this.postService.update(this.id, this.form.value).subscribe((res: any) => {
       console.log('Post updated successfully!');
       this.router.navigateByUrl('post/index');
     });
