@@ -45,7 +45,7 @@ export class PostService {
       .pipe(catchError(this.errorHandler));
   }
 
-  // Update Method
+ 
   update(id: number, post: Post): Observable<any> {
     return this.httpClient
       .put(this.apiUrl + '/posts/' + id, JSON.stringify(post), this.httpOptions)
