@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-challenge-368104": {
+      "hosting": {
+        "crudchallenge": [
+          "angular-challenge-368104"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-challenge-368104"
+  }
+}
